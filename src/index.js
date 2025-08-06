@@ -18,7 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
     nav();
     addTask();
     taskDisplay();
+
     const submit = document.getElementById("submitButton");
+    const submitTask = document.getElementById("taskSubmit");
+    submitTask.addEventListener("click", () => {
+        
+    });
     submit.addEventListener("click", () => {
         projects.push(createNewProject());
         console.log(projects);

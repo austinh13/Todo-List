@@ -18,7 +18,6 @@ export default function createNav(){
     const user = createUser("Your Username");
     const allTab = createTab("All Task",homeIcon)
     const projectTab = createTab("Projects",paperIcon)
-    const noteTab = createTab("Notes",notepadIcon)
 
     const projectHolder = document.createElement("div");
     projectHolder.classList.add("projectHolder");
@@ -39,7 +38,6 @@ export default function createNav(){
     tabHolder.appendChild(allTab);
     tabHolder.appendChild(projectTab);
     tabHolder.appendChild(projectHolder);
-    tabHolder.appendChild(noteTab);
 
     nav.appendChild(user);
     nav.appendChild(tabHolder);
