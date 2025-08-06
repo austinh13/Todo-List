@@ -1,0 +1,48 @@
+
+
+.nav{
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+    width: 25vw;
+    background: #E0E2DB;
+    gap:5vh;
+}
+
+.user{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    height: 12vh;
+}
+
+.userIcon{
+    height: 11vh;
+}
+
+.user p{
+    font-size: 2.5vw;
+}
+
+.tab{
+    width: auto;
+    height: 15vh;
+
+    display: flex;
+    flex-direction: row;
+    gap:5vw;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+
+}
+
+.tabImg{
+
+}
+
+.tab p{
+    font-size: 2vw;
+}
