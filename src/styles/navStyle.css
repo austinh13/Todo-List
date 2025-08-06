@@ -1,21 +1,38 @@
 
 
 .nav{
+      font-family: "Nunito", sans-serif;
+
     display: flex;
     flex-direction: column;
 
     height: 100vh;
     width: 25vw;
-    background: #E0E2DB;
-    gap:5vh;
+    background-color: #E0E2DB;
+    gap:2vh;
+
 }
 
 .user{
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: auto;
+    width: 25vw;
     height: 12vh;
+
+    background: #cdcec9;
+}
+
+.tabHolder{
+    display: flex;
+    flex-direction: column;
+
+    width: 22vw;
+    height: 68vh;
+
+    gap:2vh;
+    padding: 1vh 1vw 1vh 2vw;
+    align-items: left;
 }
 
 .userIcon{
@@ -23,26 +40,68 @@
 }
 
 .user p{
+    width: auto;
     font-size: 2.5vw;
 }
 
 .tab{
     width: auto;
-    height: 15vh;
+    height: 10vh;
 
     display: flex;
     flex-direction: row;
-    gap:5vw;
+    gap:4vw;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
 
+    padding: 0;
 }
 
 .tabImg{
-
+    width: 3.5vw;
+    height: auto;
 }
 
 .tab p{
+    font-size: 2.5vw;
+}
+
+.projectHolder{
+    width: 20vw;
+    height: auto;
+    max-height: 30vh;
+    padding-left: 2vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    overflow-y: auto;
+}
+
+.project{
     font-size: 2vw;
+    align-items: center;
+
+    background-color: #cdcec971;
+    border-width: 0;
+    border-radius: 3px;
+}
+
+.buttonHolder{
+    width: 20vw;
+    height: 8vh;
+    padding: 0vh 0vw 1vh 2vw;
+}
+.addButton{
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    border-style: solid;
+    font-size: 3vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    background-color: rgb(255, 81, 81);
 }
