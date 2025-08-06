@@ -1,7 +1,8 @@
 export default class Task{
-    constructor(name,date){
+    constructor(name,date,project){
         this.name = name;
         this.date = date;
+        this.project = project;
     }
 
     setName(name){
@@ -18,5 +19,9 @@ export default class Task{
 
     getDate(){
         return this.date;
+    }
+
+    getProject(){
+        return this.project;
     }
 }

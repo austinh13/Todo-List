@@ -13,4 +13,8 @@ export default class Projects{
             task[i].getName();
         }
     }
+
+    getName(){
+        return this.name;
+    }
 }

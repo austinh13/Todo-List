@@ -1,5 +1,5 @@
 import { add } from "date-fns";
-
+import Task from "./task.js"
 export default function createTaskDisplay(){
     const content = document.getElementById("content");
 
@@ -11,9 +11,16 @@ export default function createTaskDisplay(){
     changePage("All Task");
 }
 
-function createTile(){
+export function createTile(){
     const projectTitle = document.getElementById("currentProject");
-    const TaskGrid = document.getElementById("grid");
+    const taskInput = document.getElementById("taskInput");
+    const taskDate = document.getElementById("datePicker");
+
+    console.log(taskInput.value);
+    console.log(taskDate.value);
+    console.log(projectTitle.innerHTML);
+    const newTask = new Task(taskInput.value,taskDate.value,projectTitle.innerHTML);
+    return newTask;
 }
 
 export function changePage(name){
@@ -35,7 +42,7 @@ export function changePage(name){
     addTask.classList.add("addTask");
 
     const input = document.createElement("input");
-    input.type = "form";
+    input.type = "text";
     input.id = "taskInput";
     input.placeholder = "Example: Do Homework";
 
