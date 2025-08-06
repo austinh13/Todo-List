@@ -1,0 +1,22 @@
+.displayContent{
+    width: 75vw;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    background-color: #b4b6ac;
+
+    align-items: center;
+}
+
+.displayContent h1{
+    font-size: 3vw;
+}
+
+.grid{
+    width: 65vw;
+    height: 80vh;
+    background-color: #D2D4C8;
+    display: grid;
+
+}

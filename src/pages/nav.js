@@ -3,6 +3,7 @@ import icon from "../images/icon.png"
 import homeIcon from "../images/homeIcon.png"
 import paperIcon from "../images/paperIcon.png"
 import notepadIcon from "../images/notepadIcon.png"
+import {changePage} from "./taskDisplay.js"
 
 export default function createNav(){
 
@@ -29,6 +30,10 @@ export default function createNav(){
     const addButton = document.createElement("button");
     addButton.classList.add("addButton");
     addButton.innerHTML = "+";
+    addButton.onclick = function(){
+        const addTaskHolder = document.getElementById("addProjectHolder");
+        addTaskHolder.classList.toggle("active");
+    }
     buttonHolder.appendChild(addButton);
 
     tabHolder.appendChild(allTab);
@@ -84,6 +89,7 @@ export function createProject(name){
     const tab = document.createElement("button");
     tab.classList.add("project");
     tab.innerHTML = name;
+    tab.addEventListener("click", () => changePage(name));
 
     tabHolder.appendChild(tab);
 }

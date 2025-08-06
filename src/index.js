@@ -3,18 +3,25 @@
 // #E0E2DB
 
 import nav, {createProject} from "./pages/nav.js"
+import addTask, {createNewProject} from "./pages/addTask.js"
+import taskDisplay from "./pages/taskDisplay.js"
+
 
 import "./styles/bodyStyle.css"
 import "./styles/navStyle.css"
+import "./styles/taskStyle.css"
+import "./styles/taskDisplayStyle.css"
 
 document.addEventListener("DOMContentLoaded", () => {
+    const projects = [];
+
     nav();
-    createProject("CS Projects");
-    createProject("CS Projects");
-    createProject("CS Projects");
-    createProject("CS Projects");
-    createProject("CS Projects");
-    createProject("CS Projects");
-    createProject("CS Projects");
+    addTask();
+    taskDisplay();
+    const submit = document.getElementById("submitButton");
+    submit.addEventListener("click", () => {
+        projects.push(createNewProject());
+        console.log(projects);
+    })
 
 });
