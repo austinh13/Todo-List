@@ -13,15 +13,6 @@
 
 }
 
-.user{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 25vw;
-    height: 12vh;
-
-    background: #cdcec9;
-}
 
 .tabHolder{
     display: flex;
@@ -104,4 +95,61 @@
     text-align: center;
     justify-content: center;
     background-color: rgb(255, 81, 81);
+}
+
+@media(max-width:600px){
+    .nav{
+        width: 100vw;
+        height: 25vh;
+        flex-direction: column;
+        gap:0vh;
+    }
+
+    .tabHolder{
+        width: 98vw;
+        height: 12vh;
+        flex-direction: row;
+        gap:2.5vw;
+        padding: 1vh 1vw 1vh 1vw;
+    }
+
+
+    .tab {
+        width: 30vw;
+        gap: 1vw;
+    }
+
+    .tabImg {
+        width: 4vh;
+        height: auto;
+    }
+
+    .tab p{
+        font-size: 2.8vh;
+    }
+
+    .projectHolder{
+        flex-direction: column;
+        width: 32vw;
+        height: auto;
+        max-width: 30vh;
+        overflow-y: auto;
+    }
+
+    .project{
+        width: 30vw;
+        height: 8vh;
+        font-size: 2vh;
+    }
+
+    .buttonHolder {
+        width: 5vh;
+        height: 5vh;
+    }
+
+    .addButton {
+        width: 5vh;
+        height: 5vh;
+        font-size: 3vh;
+    }
 }

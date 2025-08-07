@@ -15,7 +15,6 @@ export default function createNav(){
     const tabHolder = document.createElement("div");
     tabHolder.classList.add("tabHolder");
 
-    const user = createUser("Your Username");
     const allTab = createTab("All Task",homeIcon)
     allTab.id = "allTab";
     const projectTab = createTab("Projects",paperIcon)
@@ -40,7 +39,6 @@ export default function createNav(){
     tabHolder.appendChild(projectTab);
     tabHolder.appendChild(projectHolder);
 
-    nav.appendChild(user);
     nav.appendChild(tabHolder);
     nav.appendChild(buttonHolder);
 
@@ -66,20 +64,4 @@ function createTab(name,imgSrc){
     return tab;
 }
 
-function createUser(name){
-    const user = document.createElement("div");
-    user.classList.add("user");
-
-    const userIcon = document.createElement("img");
-    userIcon.classList.add("userIcon");
-    userIcon.src = icon;
-
-    const userName = document.createElement("p");
-    userName.innerHTML = name;
-
-    user.appendChild(userIcon);
-    user.appendChild(userName);
-
-    return user;
-}
 

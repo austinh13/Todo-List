@@ -22,6 +22,7 @@
     grid-template-columns: repeat(4,16vw);
     grid-template-rows: repeat(4,20vh);
     padding: 2vh 3vw 2vh 3vw;
+    overflow-y: auto;
 }
 
 .addTask{
@@ -54,4 +55,46 @@
 
 .tile h2{
     margin: 0;
+}
+
+@media (max-width: 600px){
+    .displayContent {
+        width: 100vw;
+        padding: 1vh 0 1vh 0;
+    }
+
+    .displayContent h1 {
+        font-size: 3vh;
+    }
+
+    .grid {
+        width: 85vw;
+            grid-template-columns: repeat(2,45vw);
+    grid-template-rows: repeat(4,20vh);
+    }
+
+    .addTask{
+        
+    }
+
+    #taskInput {
+        width: 35vw;
+        height: 4vh;
+    }
+
+    #taskSubmit {
+        width: 21vw;
+        font-size: 2.5vh;
+    }
+
+    .tile {
+        width: 38vw;
+    }
+
+    .tile h2 {}
+
+    #datePicker{
+        width: 22vw;
+    }
+
 }

@@ -15,3 +15,9 @@ body{
     display: flex;
     flex-direction: row;
 }
+
+@media (max-width:600px){
+    .content{
+        flex-direction: column;
+    }
+}

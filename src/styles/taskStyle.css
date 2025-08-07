@@ -36,3 +36,22 @@
     height: 5vh;
     font-size: 1.5vw;
 }   
+
+@media (max-width:600px){
+    .holder{
+        width: 90vw;
+        height: 12vh;
+
+    }
+
+    .inputForm{
+        width: 58vw;
+        height: 5vh;
+        font-size: 2vh;
+    }
+
+    .submitButton{
+        width: 25vw;
+        font-size: 1.5vh;
+    }
+}
