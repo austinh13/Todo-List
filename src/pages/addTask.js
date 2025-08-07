@@ -25,13 +25,3 @@ export default function createAdd(){
     body.appendChild(holder);
 }
 
-export function createNewProject(){
-    const inp = document.getElementById("input");
-    const Project = new project(inp.value);
-    createProject(inp.value);
-    inp.value = "";
-    const holderTemp = document.getElementById("addProjectHolder");
-    holderTemp.classList.toggle("active");
-
-    return Project;
-}

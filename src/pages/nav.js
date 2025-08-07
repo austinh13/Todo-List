@@ -82,12 +82,3 @@ function createUser(name){
     return user;
 }
 
-export function createProject(name){
-    const tabHolder = document.getElementById("projectHolder");
-    const tab = document.createElement("button");
-    tab.classList.add("project");
-    tab.innerHTML = name;
-    tab.addEventListener("click", () => changePage(name));
-
-    tabHolder.appendChild(tab);
-}

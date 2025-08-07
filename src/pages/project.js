@@ -9,9 +9,7 @@ export default class Projects{
     }
 
     getTask(){
-        for(let i = 0; i < task.size();i++){
-            task[i].getName();
-        }
+        return this.task;
     }
 
     getName(){

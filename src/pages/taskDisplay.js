@@ -16,15 +16,12 @@ export function createTask(){
     const taskInput = document.getElementById("taskInput");
     const taskDate = document.getElementById("datePicker");
 
-    console.log(taskInput.value);
-    console.log(taskDate.value);
-    console.log(projectTitle.innerHTML);
     const newTask = new Task(taskInput.value,taskDate.value,projectTitle.innerHTML);
     createTile(taskInput.value,taskDate.value);
     return newTask;
 }
 
-function createTile(name,date){
+export function createTile(name,date){
     const taskGrid = document.getElementById("grid");
     const tile = document.createElement("div");
     tile.classList.add("tile");

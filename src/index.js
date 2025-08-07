@@ -2,10 +2,11 @@
 // #D2D4C8
 // #E0E2DB
 
-import nav, {createProject} from "./pages/nav.js"
-import addTask, {createNewProject} from "./pages/addTask.js"
-import taskDisplay, {createTask} from "./pages/taskDisplay.js"
+import nav from "./pages/nav.js"
+import addTask from "./pages/addTask.js"
+import taskDisplay, {changePage, createTask,createTile} from "./pages/taskDisplay.js"
 import task from "./pages/task.js";
+import project from "./pages/project.js";
 
 import "./styles/bodyStyle.css"
 import "./styles/navStyle.css"
@@ -47,5 +48,41 @@ function addTaskToProject(newTask){
         if(projects[i].getName() == taskProject){
             projects[i].addTask(newTask);
         }
+    }
+}
+
+function createNewProject(){
+    const inp = document.getElementById("input");
+    const Project = new project(inp.value);
+    createProject(inp.value);
+    inp.value = "";
+    const holderTemp = document.getElementById("addProjectHolder");
+    holderTemp.classList.toggle("active");
+
+    return Project;
+}
+
+function createProject(name){
+    const tabHolder = document.getElementById("projectHolder");
+    const tab = document.createElement("button");
+    tab.classList.add("project");
+    tab.innerHTML = name;
+    tab.addEventListener("click", () => addAllTiles(name));
+
+    tabHolder.appendChild(tab);
+}
+
+function addAllTiles(name){
+    let allTask;
+    for(let i = 0; i < projects.length;i++){
+        console.log(projects[i].getName());
+        if(projects[i].getName() == name){
+             allTask = projects[i].getTask();
+        }
+    }
+    changePage(name);
+    for(let i = 0; i < allTask.length;i++){
+        const tile = allTask[i];
+        createTile(tile.getName(),tile.getDate())
     }
 }
