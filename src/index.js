@@ -27,9 +27,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.addEventListener("click", (e) => {
         if (e.target && e.target.id === "taskSubmit") {
-        console.log("Clicked");
         const newTask = createTask();
         addTaskToProject(newTask);
+    }
+    });
+
+    document.body.addEventListener("click", (e) => {
+        if (e.target && e.target.id === "allTab") {
+        changePage("All Task")
+        addAllTask();
     }
     });
 
@@ -84,5 +90,15 @@ function addAllTiles(name){
     for(let i = 0; i < allTask.length;i++){
         const tile = allTask[i];
         createTile(tile.getName(),tile.getDate())
+    }
+}
+
+function addAllTask(){
+    for(let i = 0; i < projects.length;i++){
+        for(let j = 0; j < projects[i].getTask().length;j++){
+            const task = projects[i].getTask();
+            const tile = task[j];
+            createTile(tile.getName(),tile.getDate())
+        }
     }
 }

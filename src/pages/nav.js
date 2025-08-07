@@ -17,6 +17,7 @@ export default function createNav(){
 
     const user = createUser("Your Username");
     const allTab = createTab("All Task",homeIcon)
+    allTab.id = "allTab";
     const projectTab = createTab("Projects",paperIcon)
 
     const projectHolder = document.createElement("div");

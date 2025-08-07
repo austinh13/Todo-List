@@ -19,9 +19,9 @@
     height: 76vh;
     background-color: #D2D4C8;
     display: grid;
-    grid-template-columns: repeat(2,14vw);
+    grid-template-columns: repeat(4,16vw);
     grid-template-rows: repeat(4,20vh);
-    padding: 2vh 2vw 2vh 2vw;
+    padding: 2vh 3vw 2vh 3vw;
 }
 
 .addTask{
