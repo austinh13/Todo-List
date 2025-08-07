@@ -22,8 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     taskDisplay();
 
     const submit = document.getElementById("submitButton");
-    const submitTask = document.getElementById("taskSubmit");
-    console.log("submitTask:", submitTask);
+    const deleteButton = document.getElementById("deleteButton");
 
     document.body.addEventListener("click", (e) => {
         if (e.target && e.target.id === "taskSubmit") {
@@ -39,6 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     });
 
+    document.body.addEventListener('click',(e) => {
+        if (e.target && e.target.id === "deleteButton") {
+            deleteTask(e.target);
+        }
+        });
+
     submit.addEventListener("click", () => {
         projects.push(createNewProject());
         console.log(projects);
@@ -48,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function addTaskToProject(newTask){
     const taskProject = newTask.getProject();
-    console.log(taskProject);
+
     for(let i = 0; i < projects.length;i++){
         console.log(projects[i].getName());
         if(projects[i].getName() == taskProject){
@@ -89,7 +94,7 @@ function addAllTiles(name){
     changePage(name);
     for(let i = 0; i < allTask.length;i++){
         const tile = allTask[i];
-        createTile(tile.getName(),tile.getDate())
+        createTile(tile.getName(),tile.getDate(),tile.getProject())
     }
 }
 
@@ -98,7 +103,30 @@ function addAllTask(){
         for(let j = 0; j < projects[i].getTask().length;j++){
             const task = projects[i].getTask();
             const tile = task[j];
-            createTile(tile.getName(),tile.getDate())
+            createTile(tile.getName(),tile.getDate(),tile.getProject())
         }
     }
+}
+
+function deleteTask(target){
+    const taskName = target.value;
+    const parent = target.parentNode;
+    const projectName = parent.dataset.value;
+    
+    for (let i = 0; i < projects.length; i++) {
+        const project = projects[i];
+
+        if (project.getName() === projectName) {
+            const tasks = project.getTask();
+
+            if (Array.isArray(tasks)) {
+            const filtered = tasks.filter(task => {return task && task.getName() !== taskName;});
+
+            project.task = filtered;
+            }
+
+            break; // Stop loop once project is found
+        }
+    }
+    parent.remove();
 }

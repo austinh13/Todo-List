@@ -17,6 +17,7 @@
     padding: 1vh 2vw 1vh 2vw;
     transition: opacity 0.5s ease, transform 0.5s ease;
     opacity: 0;
+    pointer-events: none;
 }
 
 .holder.active{

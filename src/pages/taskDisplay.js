@@ -17,13 +17,14 @@ export function createTask(){
     const taskDate = document.getElementById("datePicker");
 
     const newTask = new Task(taskInput.value,taskDate.value,projectTitle.innerHTML);
-    createTile(taskInput.value,taskDate.value);
+    createTile(taskInput.value,taskDate.value,projectTitle.innerHTML);
     return newTask;
 }
 
-export function createTile(name,date){
+export function createTile(name,date,project){
     const taskGrid = document.getElementById("grid");
     const tile = document.createElement("div");
+    tile.dataset.value = project;
     tile.classList.add("tile");
 
     const title = document.createElement("h2");
@@ -32,8 +33,16 @@ export function createTile(name,date){
     const taskDate = document.createElement("p");
     taskDate.innerHTML = date;
 
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("deleteButton");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.id = "deleteButton";
+    deleteButton.value = name;
+
     tile.appendChild(title);
     tile.appendChild(taskDate);
+    tile.appendChild(deleteButton);
+    console.log(tile.value);
     taskGrid.appendChild(tile);
 }
 

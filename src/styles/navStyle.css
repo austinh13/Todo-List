@@ -19,7 +19,7 @@
     flex-direction: column;
 
     width: 22vw;
-    height: 68vh;
+    height: 82vh;
 
     gap:2vh;
     padding: 1vh 1vw 1vh 2vw;
@@ -61,7 +61,7 @@
 .projectHolder{
     width: 20vw;
     height: auto;
-    max-height: 30vh;
+    max-height: 60vh;
     padding-left: 2vw;
 
     display: flex;
