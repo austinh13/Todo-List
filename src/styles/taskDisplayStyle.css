@@ -84,10 +84,6 @@
     grid-template-rows: repeat(4,20vh);
     }
 
-    .addTask{
-        
-    }
-
     #taskInput {
         width: 35vw;
         height: 4vh;
@@ -102,7 +98,6 @@
         width: 38vw;
     }
 
-    .tile h2 {}
 
     #datePicker{
         width: 22vw;

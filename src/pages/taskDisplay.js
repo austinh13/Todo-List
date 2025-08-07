@@ -42,7 +42,6 @@ export function createTile(name,date,project){
     tile.appendChild(title);
     tile.appendChild(taskDate);
     tile.appendChild(deleteButton);
-    console.log(tile.value);
     taskGrid.appendChild(tile);
 }
 

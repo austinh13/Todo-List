@@ -26,8 +26,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.addEventListener("click", (e) => {
         if (e.target && e.target.id === "taskSubmit") {
-        const newTask = createTask();
-        addTaskToProject(newTask);
+            const projectTitle = document.getElementById("currentProject");
+            const taskInput = document.getElementById("taskInput");
+            let cProject;
+            for(let i = 0; i < projects.length;i++){
+                if(projects[i].getName() == projectTitle.innerHTML){
+                     cProject = projects[i];
+                     break;
+                }
+            }
+            const taskFound = cProject.getTask().find(t => t.getName() === taskInput.value);
+
+            if(taskFound){
+                alert("You can't duplicate task in the same project!");
+            }
+            else{
+                const newTask = createTask();
+                addTaskToProject(newTask);            
+            }
+            
     }
     });
 

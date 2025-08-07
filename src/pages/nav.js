@@ -1,8 +1,5 @@
-
-import icon from "../images/icon.png"
 import homeIcon from "../images/homeIcon.png"
 import paperIcon from "../images/paperIcon.png"
-import notepadIcon from "../images/notepadIcon.png"
 import {changePage} from "./taskDisplay.js"
 
 export default function createNav(){
