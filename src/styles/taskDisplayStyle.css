@@ -15,10 +15,13 @@
 }
 
 .grid{
-    width: 65vw;
-    height: 80vh;
+    width: 61vw;
+    height: 76vh;
     background-color: #D2D4C8;
     display: grid;
+    grid-template-columns: repeat(2,14vw);
+    grid-template-rows: repeat(4,20vh);
+    padding: 2vh 2vw 2vh 2vw;
 }
 
 .addTask{
@@ -36,4 +39,19 @@
 #taskSubmit{
     width: 5vw;
     font-size: 1.3vw;
+}
+
+.tile{
+    display: flex;
+    flex-direction: column;
+
+    width: 10vw;
+    height: 15vh;
+    background-color: #898b84;
+    align-items: center;
+    padding: 1vh 1vw 1vh 1vw;
+}
+
+.tile h2{
+    margin: 0;
 }

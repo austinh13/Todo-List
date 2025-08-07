@@ -11,7 +11,7 @@ export default function createTaskDisplay(){
     changePage("All Task");
 }
 
-export function createTile(){
+export function createTask(){
     const projectTitle = document.getElementById("currentProject");
     const taskInput = document.getElementById("taskInput");
     const taskDate = document.getElementById("datePicker");
@@ -20,7 +20,24 @@ export function createTile(){
     console.log(taskDate.value);
     console.log(projectTitle.innerHTML);
     const newTask = new Task(taskInput.value,taskDate.value,projectTitle.innerHTML);
+    createTile(taskInput.value,taskDate.value);
     return newTask;
+}
+
+function createTile(name,date){
+    const taskGrid = document.getElementById("grid");
+    const tile = document.createElement("div");
+    tile.classList.add("tile");
+
+    const title = document.createElement("h2");
+    title.innerHTML = name;
+
+    const taskDate = document.createElement("p");
+    taskDate.innerHTML = date;
+
+    tile.appendChild(title);
+    tile.appendChild(taskDate);
+    taskGrid.appendChild(tile);
 }
 
 export function changePage(name){

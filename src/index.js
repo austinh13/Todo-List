@@ -4,7 +4,7 @@
 
 import nav, {createProject} from "./pages/nav.js"
 import addTask, {createNewProject} from "./pages/addTask.js"
-import taskDisplay, {createTile} from "./pages/taskDisplay.js"
+import taskDisplay, {createTask} from "./pages/taskDisplay.js"
 import task from "./pages/task.js";
 
 import "./styles/bodyStyle.css"
@@ -23,13 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const submit = document.getElementById("submitButton");
     const submitTask = document.getElementById("taskSubmit");
     console.log("submitTask:", submitTask);
-    
+
     document.body.addEventListener("click", (e) => {
         if (e.target && e.target.id === "taskSubmit") {
         console.log("Clicked");
-        const newTask = createTile();
-        console.log(newTask);
-        }
+        const newTask = createTask();
+        addTaskToProject(newTask);
+    }
     });
 
     submit.addEventListener("click", () => {
@@ -43,9 +43,9 @@ function addTaskToProject(newTask){
     const taskProject = newTask.getProject();
     console.log(taskProject);
     for(let i = 0; i < projects.length;i++){
-        console(projects[i].getName());
+        console.log(projects[i].getName());
         if(projects[i].getName() == taskProject){
-            console.log("Found it!!!");
+            projects[i].addTask(newTask);
         }
     }
 }
