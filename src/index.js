@@ -14,7 +14,7 @@ import "./styles/taskStyle.css"
 import "./styles/taskDisplayStyle.css"
 
 const stored = JSON.parse(localStorage.getItem('projects')) || [];
-const projects = stored.map(p => {
+let projects = stored.map(p => {
     const proj = new project(p.name); // or however your constructor works
     if (p.task) {
         p.task.forEach(t => {
@@ -56,6 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         });
 
+    document.body.addEventListener('click',(e) => {
+        if (e.target && e.target.id === "deleteProjectButton") {
+            deleteProject(e.target);
+        }
+        });
     submit.addEventListener("click", () => {
         const inp = document.getElementById("input");
 
@@ -101,13 +106,26 @@ function createNewProject(name){
 
 function addTab(name){
     const tabHolder = document.getElementById("projectHolder");
-    const tab = document.createElement("button");
+    const tab = document.createElement("div");
     tab.classList.add("project");
-    tab.innerHTML = name;
-    tab.addEventListener("click", () => addAllTiles(name));
+    
+    const projectName = document.createElement("button");
+    projectName.classList.add("projectList");
+    projectName.innerHTML = name;
 
+    const deleteProjectButton = document.createElement("button");
+    deleteProjectButton.classList.add("deleteProject");
+    deleteProjectButton.innerHTML = "🗑️";
+    deleteProjectButton.id = "deleteProjectButton";
+    deleteProjectButton.dataset.value = name;
+
+    projectName.addEventListener("click", () => addAllTiles(name));
+
+    tab.appendChild(projectName);
+    tab.appendChild(deleteProjectButton);
     tabHolder.appendChild(tab);    
 }
+
 
 function addAllTiles(name){
     let allTask;
@@ -125,6 +143,8 @@ function addAllTiles(name){
 }
 
 function addAllTask(){
+    const taskHolder = document.getElementById("taskHolder");
+    taskHolder.innerHTML = "";
     for(let i = 0; i < projects.length;i++){
         for(let j = 0; j < projects[i].getTask().length;j++){
             const task = projects[i].getTask();
@@ -132,6 +152,17 @@ function addAllTask(){
             createTile(tile.getName(),tile.getDate(),tile.getProject())
         }
     }
+}
+
+function deleteProject(target){
+    const name = target.dataset.value;
+    const filtered = projects.filter(project => {return project && project.getName() !== name});
+    projects = filtered;
+    storeProject();
+    addAllProjects();
+    
+    let parent = target.parentNode;
+    parent.remove();
 }
 
 function deleteTask(target){
@@ -184,6 +215,8 @@ function submitTask(){
 }
 
 function addAllProjects(){
+    const tabHolder = document.getElementById("projectHolder");
+    tabHolder.innerHTML = ""; // Clear before re-adding
     for(let i = 0; i < projects.length;i++){
         addTab(projects[i].getName());
     }

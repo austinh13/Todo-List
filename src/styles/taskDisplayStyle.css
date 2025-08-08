@@ -39,8 +39,12 @@
 }
 
 #taskSubmit{
-    width: 5vw;
+    width: 7vw;
     font-size: 1.3vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* horizontal centering */
+    justify-content: center; /* vertical centering */
 }
 
 .tile{
@@ -55,6 +59,7 @@
 }
 
 .tile h2{
+    
     margin: 0;
 }
 
@@ -81,7 +86,7 @@
     .grid {
         width: 85vw;
             grid-template-columns: repeat(2,45vw);
-    grid-template-rows: repeat(4,20vh);
+    grid-template-rows: repeat(4,23vh);
     }
 
     #taskInput {
@@ -96,6 +101,11 @@
 
     .tile {
         width: 38vw;
+        height: 20vh;
+    }
+
+    .tile h2{
+        font-size: 2.3vh;
     }
 
 
@@ -103,4 +113,9 @@
         width: 22vw;
     }
 
+    .deleteButton{
+        width: 18vw;
+        height: 4vh;
+        font-size: 2vh;
+    }
 }
