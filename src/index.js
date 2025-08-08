@@ -13,13 +13,27 @@ import "./styles/navStyle.css"
 import "./styles/taskStyle.css"
 import "./styles/taskDisplayStyle.css"
 
-const projects = [];
+const stored = JSON.parse(localStorage.getItem('projects')) || [];
+const projects = stored.map(p => {
+    const proj = new project(p.name); // or however your constructor works
+    if (p.task) {
+        p.task.forEach(t => {
+            proj.addTask(new task(t.name, t.date, t.project)); // adapt to your task class
+        });
+    }
+    return proj;
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
     nav();
     addTask();
     taskDisplay();
+    changePage("All Task");
+    addAllProjects();
+    addAllTask();
+
 
     const submit = document.getElementById("submitButton");
 
@@ -50,12 +64,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("You can't have replicate projects!");
             }
             else{
-                projects.push(createNewProject());
-                console.log(projects);
+                if(inp.value == ""){
+                    alert("You must have a name for the project!");
+                }
+                else{
+                    projects.push(createNewProject(inp.value));
+                    storeProject();           
+                }
             }
-    })
+        })
 
-});
+    });
 
 function addTaskToProject(newTask){
     const taskProject = newTask.getProject();
@@ -68,11 +87,19 @@ function addTaskToProject(newTask){
     }
 }
 
-function createNewProject(){
+function createNewProject(name){
     const inp = document.getElementById("input");
     const Project = new project(inp.value);
-    const name = inp.value;
 
+    addTab(inp.value);
+    inp.value = "";
+    const holderTemp = document.getElementById("addProjectHolder");
+    holderTemp.classList.toggle("active");
+
+    return Project;
+}
+
+function addTab(name){
     const tabHolder = document.getElementById("projectHolder");
     const tab = document.createElement("button");
     tab.classList.add("project");
@@ -80,11 +107,6 @@ function createNewProject(){
     tab.addEventListener("click", () => addAllTiles(name));
 
     tabHolder.appendChild(tab);    
-    inp.value = "";
-    const holderTemp = document.getElementById("addProjectHolder");
-    holderTemp.classList.toggle("active");
-
-    return Project;
 }
 
 function addAllTiles(name){
@@ -129,6 +151,7 @@ function deleteTask(target){
         }
     }
     parent.remove();
+    storeProject();
 }
 
 function submitTask(){
@@ -153,9 +176,44 @@ function submitTask(){
                     
                     else{
                         const newTask = createTask();
-                        addTaskToProject(newTask);            
+                        addTaskToProject(newTask); 
+                        storeProject();           
                     }
                 }
-            }
-            
+            } 
+}
+
+function addAllProjects(){
+    for(let i = 0; i < projects.length;i++){
+        addTab(projects[i].getName());
+    }
+}
+
+// from https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+function storageAvailable(type) {
+  let storage;
+  try {
+    storage = window[type];
+    const x = "__storage_test__";
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return (
+      e instanceof DOMException &&
+      e.name === "QuotaExceededError" &&
+      // acknowledge QuotaExceededError only if there's something already stored
+      storage &&
+      storage.length !== 0
+    );
+  }
+}
+
+function storeProject(){
+    if(storageAvailable('localStorage')){
+        localStorage.setItem('projects', JSON.stringify(projects));
+    }
+    else{
+        alert("Data not stored!");
+    }
 }
