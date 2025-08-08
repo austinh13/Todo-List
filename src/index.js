@@ -22,37 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
     taskDisplay();
 
     const submit = document.getElementById("submitButton");
-    const deleteButton = document.getElementById("deleteButton");
 
     document.body.addEventListener("click", (e) => {
         if (e.target && e.target.id === "taskSubmit") {
-            const projectTitle = document.getElementById("currentProject");
-            const taskInput = document.getElementById("taskInput");
-            let cProject;
-            for(let i = 0; i < projects.length;i++){
-                if(projects[i].getName() == projectTitle.innerHTML){
-                     cProject = projects[i];
-                     break;
-                }
-            }
-            const taskFound = cProject.getTask().find(t => t.getName() === taskInput.value);
-
-            if(taskFound){
-                alert("You can't duplicate task in the same project!");
-            }
-            else{
-                const newTask = createTask();
-                addTaskToProject(newTask);            
-            }
-            
-    }
+            submitTask();
+        }
     });
 
     document.body.addEventListener("click", (e) => {
         if (e.target && e.target.id === "allTab") {
         changePage("All Task")
         addAllTask();
-    }
+        }
     });
 
     document.body.addEventListener('click',(e) => {
@@ -62,8 +43,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     submit.addEventListener("click", () => {
-        projects.push(createNewProject());
-        console.log(projects);
+        const inp = document.getElementById("input");
+
+            const projectFound = projects.find(p => p.getName() === inp.value);
+            if(projectFound){
+                alert("You can't have replicate projects!");
+            }
+            else{
+                projects.push(createNewProject());
+                console.log(projects);
+            }
     })
 
 });
@@ -82,22 +71,20 @@ function addTaskToProject(newTask){
 function createNewProject(){
     const inp = document.getElementById("input");
     const Project = new project(inp.value);
-    createProject(inp.value);
-    inp.value = "";
-    const holderTemp = document.getElementById("addProjectHolder");
-    holderTemp.classList.toggle("active");
+    const name = inp.value;
 
-    return Project;
-}
-
-function createProject(name){
     const tabHolder = document.getElementById("projectHolder");
     const tab = document.createElement("button");
     tab.classList.add("project");
     tab.innerHTML = name;
     tab.addEventListener("click", () => addAllTiles(name));
 
-    tabHolder.appendChild(tab);
+    tabHolder.appendChild(tab);    
+    inp.value = "";
+    const holderTemp = document.getElementById("addProjectHolder");
+    holderTemp.classList.toggle("active");
+
+    return Project;
 }
 
 function addAllTiles(name){
@@ -132,18 +119,43 @@ function deleteTask(target){
     
     for (let i = 0; i < projects.length; i++) {
         const project = projects[i];
-
         if (project.getName() === projectName) {
             const tasks = project.getTask();
-
             if (Array.isArray(tasks)) {
             const filtered = tasks.filter(task => {return task && task.getName() !== taskName;});
-
             project.task = filtered;
             }
-
-            break; // Stop loop once project is found
+            break;
         }
     }
     parent.remove();
+}
+
+function submitTask(){
+            const projectTitle = document.getElementById("currentProject");
+            const taskInput = document.getElementById("taskInput");
+            const taskDate = document.getElementById("datePicker");
+
+            let cProject = projects.find(p => p.getName() === projectTitle.innerHTML); 
+            if(!cProject){
+                alert("You must select or create a project!");
+            }
+            else{
+
+                if(taskDate.value == "" || taskInput.value == ""){
+                    alert("Must fill in task name or date!");
+                }
+                else{
+                    let taskFound = cProject.getTask().find(t => t.getName() === taskInput.value);
+                    if(taskFound){
+                        alert("You can't duplicate task in the same project!");
+                    }
+                    
+                    else{
+                        const newTask = createTask();
+                        addTaskToProject(newTask);            
+                    }
+                }
+            }
+            
 }
