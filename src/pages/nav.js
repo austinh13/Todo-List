@@ -1,7 +1,7 @@
 import homeIcon from "../images/homeIcon.png"
 import paperIcon from "../images/paperIcon.png"
-import {changePage} from "./taskDisplay.js"
-
+import {addAllTask} from "../index.js"
+import { changePage } from "./taskDisplay.js";
 export default function createNav(){
 
     const content = document.getElementById("content");
@@ -14,6 +14,8 @@ export default function createNav(){
 
     const allTab = createTab("All Task",homeIcon)
     allTab.id = "allTab";
+    allTab.onclick = () =>{changePage("All Task")
+            addAllTask()};
     const projectTab = createTab("Projects",paperIcon)
 
     const projectHolder = document.createElement("div");
@@ -60,5 +62,4 @@ function createTab(name,imgSrc){
 
     return tab;
 }
-
 

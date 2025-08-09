@@ -3,10 +3,11 @@
 // #E0E2DB
 
 import nav from "./pages/nav.js"
-import addTask from "./pages/addTask.js"
+import addTask, {addTab} from "./pages/addProject.js"
 import taskDisplay, {changePage, createTask,createTile} from "./pages/taskDisplay.js"
 import task from "./pages/task.js";
 import project from "./pages/project.js";
+
 
 import "./styles/bodyStyle.css"
 import "./styles/navStyle.css"
@@ -14,7 +15,7 @@ import "./styles/taskStyle.css"
 import "./styles/taskDisplayStyle.css"
 
 const stored = JSON.parse(localStorage.getItem('projects')) || [];
-let projects = stored.map(p => {
+export let projects = stored.map(p => {
     const proj = new project(p.name); // or however your constructor works
     if (p.task) {
         p.task.forEach(t => {
@@ -34,100 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
     addAllProjects();
     addAllTask();
 
-
-    const submit = document.getElementById("submitButton");
-
-    document.body.addEventListener("click", (e) => {
-        if (e.target && e.target.id === "taskSubmit") {
-            submitTask();
-        }
-    });
-
-    document.body.addEventListener("click", (e) => {
-        if (e.target && e.target.id === "allTab") {
-        changePage("All Task")
-        addAllTask();
-        }
-    });
-
-    document.body.addEventListener('click',(e) => {
-        if (e.target && e.target.id === "deleteButton") {
-            deleteTask(e.target);
-        }
-        });
-
-    document.body.addEventListener('click',(e) => {
-        if (e.target && e.target.id === "deleteProjectButton") {
-            deleteProject(e.target);
-        }
-        });
-    submit.addEventListener("click", () => {
-        const inp = document.getElementById("input");
-
-            const projectFound = projects.find(p => p.getName() === inp.value);
-            if(projectFound){
-                alert("You can't have replicate projects!");
-            }
-            else{
-                if(inp.value == ""){
-                    alert("You must have a name for the project!");
-                }
-                else{
-                    projects.push(createNewProject(inp.value));
-                    storeProject();           
-                }
-            }
-        })
-
-    });
-
-function addTaskToProject(newTask){
-    const taskProject = newTask.getProject();
-
-    for(let i = 0; i < projects.length;i++){
-        console.log(projects[i].getName());
-        if(projects[i].getName() == taskProject){
-            projects[i].addTask(newTask);
-        }
-    }
-}
-
-function createNewProject(name){
-    const inp = document.getElementById("input");
-    const Project = new project(inp.value);
-
-    addTab(inp.value);
-    inp.value = "";
-    const holderTemp = document.getElementById("addProjectHolder");
-    holderTemp.classList.toggle("active");
-
-    return Project;
-}
-
-function addTab(name){
-    const tabHolder = document.getElementById("projectHolder");
-    const tab = document.createElement("div");
-    tab.classList.add("project");
-    
-    const projectName = document.createElement("button");
-    projectName.classList.add("projectList");
-    projectName.innerHTML = name;
-
-    const deleteProjectButton = document.createElement("button");
-    deleteProjectButton.classList.add("deleteProject");
-    deleteProjectButton.innerHTML = "🗑️";
-    deleteProjectButton.id = "deleteProjectButton";
-    deleteProjectButton.dataset.value = name;
-
-    projectName.addEventListener("click", () => addAllTiles(name));
-
-    tab.appendChild(projectName);
-    tab.appendChild(deleteProjectButton);
-    tabHolder.appendChild(tab);    
-}
+});
 
 
-function addAllTiles(name){
+export function addAllTiles(name){
     let allTask;
     for(let i = 0; i < projects.length;i++){
         console.log(projects[i].getName());
@@ -142,9 +53,7 @@ function addAllTiles(name){
     }
 }
 
-function addAllTask(){
-    const taskHolder = document.getElementById("taskHolder");
-    taskHolder.innerHTML = "";
+export function addAllTask(){
     for(let i = 0; i < projects.length;i++){
         for(let j = 0; j < projects[i].getTask().length;j++){
             const task = projects[i].getTask();
@@ -154,7 +63,7 @@ function addAllTask(){
     }
 }
 
-function deleteProject(target){
+export function deleteProject(target){
     const name = target.dataset.value;
     const filtered = projects.filter(project => {return project && project.getName() !== name});
     projects = filtered;
@@ -165,7 +74,7 @@ function deleteProject(target){
     parent.remove();
 }
 
-function deleteTask(target){
+export function deleteTask(target){
     const taskName = target.value;
     const parent = target.parentNode;
     const projectName = parent.dataset.value;
@@ -185,36 +94,9 @@ function deleteTask(target){
     storeProject();
 }
 
-function submitTask(){
-            const projectTitle = document.getElementById("currentProject");
-            const taskInput = document.getElementById("taskInput");
-            const taskDate = document.getElementById("datePicker");
 
-            let cProject = projects.find(p => p.getName() === projectTitle.innerHTML); 
-            if(!cProject){
-                alert("You must select or create a project!");
-            }
-            else{
 
-                if(taskDate.value == "" || taskInput.value == ""){
-                    alert("Must fill in task name or date!");
-                }
-                else{
-                    let taskFound = cProject.getTask().find(t => t.getName() === taskInput.value);
-                    if(taskFound){
-                        alert("You can't duplicate task in the same project!");
-                    }
-                    
-                    else{
-                        const newTask = createTask();
-                        addTaskToProject(newTask); 
-                        storeProject();           
-                    }
-                }
-            } 
-}
-
-function addAllProjects(){
+export function addAllProjects(){
     const tabHolder = document.getElementById("projectHolder");
     tabHolder.innerHTML = ""; // Clear before re-adding
     for(let i = 0; i < projects.length;i++){
@@ -223,7 +105,7 @@ function addAllProjects(){
 }
 
 // from https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
-function storageAvailable(type) {
+export function storageAvailable(type) {
   let storage;
   try {
     storage = window[type];
@@ -242,7 +124,7 @@ function storageAvailable(type) {
   }
 }
 
-function storeProject(){
+export function storeProject(){
     if(storageAvailable('localStorage')){
         localStorage.setItem('projects', JSON.stringify(projects));
     }

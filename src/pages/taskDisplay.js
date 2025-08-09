@@ -1,5 +1,11 @@
 import { add } from "date-fns";
 import Task from "./task.js"
+import {
+  projects,
+  storeProject,
+  deleteTask
+} from '../index.js';
+
 export default function createTaskDisplay(){
     const content = document.getElementById("content");
 
@@ -38,6 +44,7 @@ export function createTile(name,date,project){
     deleteButton.innerHTML = "Delete";
     deleteButton.id = "deleteButton";
     deleteButton.value = name;
+    deleteButton.onclick = () => deleteTask(deleteButton);
 
     tile.appendChild(title);
     tile.appendChild(taskDate);
@@ -72,6 +79,8 @@ export function changePage(name){
     submitForm.id = "taskSubmit";
     submitForm.innerHTML = "Submit";
 
+    submitForm.onclick = () => submitTask();
+
     const datePicker = document.createElement("input");
     datePicker.type = "date";
     datePicker.id = "datePicker";
@@ -83,4 +92,44 @@ export function changePage(name){
     content.appendChild(header);
     content.appendChild(grid);
     content.appendChild(addTask);
+}
+
+function submitTask(){
+            const projectTitle = document.getElementById("currentProject");
+            const taskInput = document.getElementById("taskInput");
+            const taskDate = document.getElementById("datePicker");
+
+            let cProject = projects.find(p => p.getName() === projectTitle.innerHTML); 
+            if(!cProject){
+                alert("You must select or create a project!");
+            }
+            else{
+
+                if(taskDate.value == "" || taskInput.value == ""){
+                    alert("Must fill in task name or date!");
+                }
+                else{
+                    let taskFound = cProject.getTask().find(t => t.getName() === taskInput.value);
+                    if(taskFound){
+                        alert("You can't duplicate task in the same project!");
+                    }
+                    
+                    else{
+                        const newTask = createTask();
+                        addTaskToProject(newTask); 
+                        storeProject();           
+                    }
+                }
+            } 
+}
+
+function addTaskToProject(newTask){
+    const taskProject = newTask.getProject();
+
+    for(let i = 0; i < projects.length;i++){
+        console.log(projects[i].getName());
+        if(projects[i].getName() == taskProject){
+            projects[i].addTask(newTask);
+        }
+    }
 }
